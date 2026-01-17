@@ -1,0 +1,17 @@
+# .NET
+bin/
+obj/
+
+# Node
+node_modules/
+
+# Environment
+.env
+.env.*
+
+# Docker
+docker-data/
+
+# OS
+.DS_Store
+Thumbs.db
