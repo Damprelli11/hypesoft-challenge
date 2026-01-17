@@ -3,28 +3,29 @@ namespace Hypesoft.Domain.Entities;
 public class Product
 {
     public Guid Id { get; private set; }
-    public string Name { get; private set; } = default!;
-    public string Description { get; private set; } = default!;
+    public string Name { get; private set; } = null!;
+    public string Description { get; private set; } = null!;
     public decimal Price { get; private set; }
-    public Guid CategoryId { get; private set; }
+    public string Category { get; private set; } = null!;
     public int Stock { get; private set; }
+    public DateTime CreatedAt { get; private set; }
 
-    protected Product() { }
+    private Product() { }
 
     public Product(
         string name,
         string description,
         decimal price,
-        Guid categoryId,
-        int stock
-    )
+        string category,
+        int stock)
     {
         Id = Guid.NewGuid();
         Name = name;
         Description = description;
         Price = price;
-        CategoryId = categoryId;
+        Category = category;
         Stock = stock;
+        CreatedAt = DateTime.UtcNow;
     }
 
     public void UpdateStock(int newStock)
