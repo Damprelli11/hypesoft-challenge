@@ -1,12 +1,21 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { DashboardLayout } from "./components/layout/DashboardLayout";
 
-import './App.css'
+// pages (crie depois se ainda não existir)
+import DashboardPage from "./pages/dashboard/DashboardPage";
+import ProductsPage from "./pages/products/ProductsPage";
 
-export default function App() {
+function App() {
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center">
-      <h1 className="text-5xl font-bold text-blue-500">
-        Hello World!!! TAILWIND FUNCIONANDO
-      </h1>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<DashboardLayout />}>
+          <Route path="/" element={<DashboardPage />} />
+          <Route path="/products" element={<ProductsPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
+
+export default App;

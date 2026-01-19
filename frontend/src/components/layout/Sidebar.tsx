@@ -23,7 +23,11 @@ export function Sidebar() {
               key={item.path}
               to={item.path}
               className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition
-                ${active ? "bg-zinc-800 text-white" : "text-zinc-400 hover:bg-zinc-800 hover:text-white"}
+                ${
+                  active
+                    ? "bg-zinc-800 text-white"
+                    : "text-zinc-400 hover:bg-zinc-800 hover:text-white"
+                }
               `}
             >
               <Icon size={18} />
