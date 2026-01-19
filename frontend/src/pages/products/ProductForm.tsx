@@ -6,27 +6,27 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 interface ProductFormProps {
-  onSubmit: (data: ProductFormData) => Promise<void>;
+  onSubmit: (data: ProductFormData) => void;
   isLoading?: boolean;
+  initialData?: ProductFormData;
 }
 
-export function ProductForm({ onSubmit, isLoading }: ProductFormProps) {
+export function ProductForm({
+  onSubmit,
+  isLoading,
+  initialData,
+}: ProductFormProps) {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<ProductFormData>({
     resolver: zodResolver(productSchema),
+    defaultValues: initialData,
   });
 
-  async function handleFormSubmit(data: ProductFormData) {
-    await onSubmit(data);
-    reset();
-  }
-
   return (
-    <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-4">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <div>
         <Label>Nome</Label>
         <Input {...register("name")} />
@@ -47,9 +47,6 @@ export function ProductForm({ onSubmit, isLoading }: ProductFormProps) {
           step="0.01"
           {...register("price", { valueAsNumber: true })}
         />
-        {errors.price && (
-          <p className="text-red-500 text-sm">{errors.price.message}</p>
-        )}
       </div>
 
       <div>
@@ -60,12 +57,9 @@ export function ProductForm({ onSubmit, isLoading }: ProductFormProps) {
       <div>
         <Label>Estoque</Label>
         <Input type="number" {...register("stock", { valueAsNumber: true })} />
-        {errors.stock && (
-          <p className="text-red-500 text-sm">{errors.stock.message}</p>
-        )}
       </div>
 
-      <Button type="submit" className="w-full" disabled={isLoading}>
+      <Button className="w-full" disabled={isLoading}>
         {isLoading ? "Salvando..." : "Salvar"}
       </Button>
     </form>
