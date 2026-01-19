@@ -10,6 +10,18 @@ var builder = WebApplication.CreateBuilder(args);
 // Controllers
 builder.Services.AddControllers();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy
+            .WithOrigins("http://localhost:5173")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
+
 // Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -26,7 +38,13 @@ builder.Services.AddValidatorsFromAssembly(typeof(AssemblyReference).Assembly);
 // Pipeline behavior
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
+
+
 var app = builder.Build();
+
+
+app.UseCors("AllowFrontend");
+
 
 // Swagger só no ambiente de desenvolvimento
 if (app.Environment.IsDevelopment())
