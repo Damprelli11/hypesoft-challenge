@@ -2,6 +2,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Hypesoft.Application.Products.Commands.CreateProduct;
 using Hypesoft.Application.Products.Commands.UpdateProduct;
+using Hypesoft.Application.Products.Commands.DeleteProduct;
 using Hypesoft.Application.Products.Queries.GetProductById;
 using Hypesoft.Application.Products.Queries.GetAllProducts;
 
@@ -64,5 +65,15 @@ public class ProductsController : ControllerBase
         return NoContent();
     }
 
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> Delete(
+        Guid id,
+        CancellationToken cancellationToken)
+    {
+        await _mediator.Send(
+            new DeleteProductCommand(id),
+            cancellationToken);
 
+        return NoContent();
+    }
 }
