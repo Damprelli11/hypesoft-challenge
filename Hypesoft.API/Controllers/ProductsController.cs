@@ -2,6 +2,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Hypesoft.Application.Products.Commands.CreateProduct;
 using Hypesoft.Application.Products.Queries.GetProductById;
+using Hypesoft.Application.Products.Queries.GetAllProducts;
 
 namespace Hypesoft.API.Controllers;
 
@@ -22,17 +23,25 @@ public class ProductsController : ControllerBase
         CancellationToken cancellationToken)
     {
         var id = await _mediator.Send(command, cancellationToken);
-        return CreatedAtAction(
-            nameof(GetById),
-            new { id },
-            new { id }
-        );
+        return CreatedAtAction(nameof(GetById), new { id }, null);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
+    {
+        var products = await _mediator.Send(
+            new GetAllProductsQuery(),
+            cancellationToken);
+
+        return Ok(products);
     }
 
     [HttpGet("{id:guid}")]
-    public async Task<IActionResult> GetById(Guid id)
+    public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
     {
-        var product = await _mediator.Send(new GetProductByIdQuery(id));
+        var product = await _mediator.Send(
+            new GetProductByIdQuery(id),
+            cancellationToken);
 
         if (product is null)
             return NotFound();

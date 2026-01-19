@@ -5,27 +5,22 @@ namespace Hypesoft.Infrastructure.Repositories;
 
 public class ProductRepository : IProductRepository
 {
-    private readonly List<Product> _products;
+    private static readonly List<Product> _products = new();
 
-    public ProductRepository(List<Product> products)
-    {
-        _products = products;
-    }
-
-    public Task AddAsync(Product product, CancellationToken ct)
+    public Task AddAsync(Product product, CancellationToken cancellationToken)
     {
         _products.Add(product);
         return Task.CompletedTask;
     }
 
-    public Task<Product?> GetByIdAsync(Guid id, CancellationToken ct)
+    public Task<Product?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         var product = _products.FirstOrDefault(p => p.Id == id);
         return Task.FromResult(product);
     }
 
-    public Task<IReadOnlyList<Product>> GetAllAsync(CancellationToken ct)
+    public Task<IEnumerable<Product>> GetAllAsync(CancellationToken cancellationToken)
     {
-        return Task.FromResult((IReadOnlyList<Product>)_products);
+        return Task.FromResult(_products.AsEnumerable());
     }
 }

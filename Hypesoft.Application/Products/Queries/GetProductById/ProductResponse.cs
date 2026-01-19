@@ -1,4 +1,4 @@
-namespace Hypesoft.Application.Products.Queries.GetProductById;
+namespace Hypesoft.Application.Products.Queries;
 
 public record ProductResponse(
     Guid Id,
