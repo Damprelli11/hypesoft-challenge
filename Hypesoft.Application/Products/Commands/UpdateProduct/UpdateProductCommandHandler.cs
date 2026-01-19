@@ -1,6 +1,6 @@
 using MediatR;
 using Hypesoft.Domain.Repositories;
-using Hypesoft.Application.Products.Queries;
+using Hypesoft.Application.Products.Responses;
 
 namespace Hypesoft.Application.Products.Commands.UpdateProduct;
 

@@ -41,6 +41,7 @@ public class Product
         Category = category;
         Stock = stock;
     }
+
     public void UpdateStock(int newStock)
     {
         Stock = newStock;

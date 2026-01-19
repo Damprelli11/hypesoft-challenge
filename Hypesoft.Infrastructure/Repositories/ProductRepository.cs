@@ -1,45 +1,32 @@
-﻿using Hypesoft.Domain.Entities;
-using Hypesoft.Domain.Repositories;
+﻿using Hypesoft.Domain.Repositories;
+using Hypesoft.Domain.Entities;
+using Hypesoft.Infrastructure.Persistence;
+using MongoDB.Driver;
 
 namespace Hypesoft.Infrastructure.Repositories;
 
 public class ProductRepository : IProductRepository
 {
-    private readonly List<Product> _products = new();
+    private readonly IMongoCollection<Product> _collection;
 
-    public Task AddAsync(Product product, CancellationToken cancellationToken)
+    public ProductRepository(MongoContext context)
     {
-        _products.Add(product);
-        return Task.CompletedTask;
+        _collection = context.Products;
+    }
+    public async Task AddAsync(Product product, CancellationToken cancellationToken)
+    {
+        await _collection.InsertOneAsync(product, cancellationToken: cancellationToken);
     }
 
-    public Task DeleteAsync(Guid id, CancellationToken cancellationToken)
-    {
-        var product = _products.FirstOrDefault(p => p.Id == id);
-        if (product != null)
-            _products.Remove(product);
+    public async Task<Product?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+        => await _collection.Find(p => p.Id == id).FirstOrDefaultAsync(cancellationToken);
 
-        return Task.CompletedTask;
-    }
+    public async Task<IEnumerable<Product>> GetAllAsync(CancellationToken cancellationToken)
+        => await _collection.Find(_ => true).ToListAsync(cancellationToken);
 
-    public Task<IEnumerable<Product>> GetAllAsync(CancellationToken cancellationToken)
-    {
-        //Retornar como IEnumerable<Product>
-        return Task.FromResult(_products.AsEnumerable());
-    }
+    public async Task UpdateAsync(Product product, CancellationToken cancellationToken)
+        => await _collection.ReplaceOneAsync(p => p.Id == product.Id, product, cancellationToken: cancellationToken);
 
-    public Task<Product?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
-    {
-        var product = _products.FirstOrDefault(p => p.Id == id);
-        return Task.FromResult(product);
-    }
-
-    public Task UpdateAsync(Product product, CancellationToken cancellationToken)
-    {
-        var index = _products.FindIndex(p => p.Id == product.Id);
-        if (index != -1)
-            _products[index] = product;
-
-        return Task.CompletedTask;
-    }
+    public async Task DeleteAsync(Guid id, CancellationToken cancellationToken)
+        => await _collection.DeleteOneAsync(p => p.Id == id, cancellationToken);
 }

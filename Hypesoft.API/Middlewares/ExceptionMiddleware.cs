@@ -26,12 +26,14 @@ public class ExceptionMiddleware
                 errors = ex.Errors.Select(e => e.ErrorMessage)
             });
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+            context.Response.StatusCode = 500;
+
             await context.Response.WriteAsJsonAsync(new
             {
-                error = "Internal server error"
+                error = ex.Message,
+                stackTrace = ex.StackTrace
             });
         }
     }

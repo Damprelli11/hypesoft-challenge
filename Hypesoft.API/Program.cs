@@ -15,14 +15,16 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Infrastructure (Mongo + Repositories)
-builder.Services.AddInfrastructure();
+builder.Services.AddInfrastructure(builder.Configuration);
 
+// MediatR
 builder.Services.AddMediatR(typeof(AssemblyReference).Assembly);
 
+// Validators
 builder.Services.AddValidatorsFromAssembly(typeof(AssemblyReference).Assembly);
 
+// Pipeline behavior
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
-
 
 var app = builder.Build();
 
