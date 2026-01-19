@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Hypesoft.Application.Products.Commands.CreateProduct;
+using Hypesoft.Application.Products.Commands.UpdateProduct;
 using Hypesoft.Application.Products.Queries.GetProductById;
 using Hypesoft.Application.Products.Queries.GetAllProducts;
 
@@ -48,4 +49,20 @@ public class ProductsController : ControllerBase
 
         return Ok(product);
     }
+
+
+    [HttpPut("{id:guid}")]
+    public async Task<IActionResult> Update(
+        Guid id,
+        [FromBody] UpdateProductCommand command,
+        CancellationToken cancellationToken)
+    {
+        var commandWithId = command with { Id = id };
+
+        await _mediator.Send(commandWithId, cancellationToken);
+
+        return NoContent();
+    }
+
+
 }

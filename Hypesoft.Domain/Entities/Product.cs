@@ -28,6 +28,19 @@ public class Product
         CreatedAt = DateTime.UtcNow;
     }
 
+    public void Update(
+        string name,
+        string description,
+        decimal price,
+        string category,
+        int stock)
+    {
+        Name = name;
+        Description = description;
+        Price = price;
+        Category = category;
+        Stock = stock;
+    }
     public void UpdateStock(int newStock)
     {
         Stock = newStock;
