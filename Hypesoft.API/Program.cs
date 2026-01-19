@@ -1,6 +1,9 @@
-using Hypesoft.Infrastructure.Configurations;
 using MediatR;
 using Hypesoft.Application;
+using FluentValidation;
+using Hypesoft.Application.Behaviors;
+using Hypesoft.API.Middlewares;
+using Hypesoft.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,10 +17,12 @@ builder.Services.AddSwaggerGen();
 // Infrastructure (Mongo + Repositories)
 builder.Services.AddInfrastructure(builder.Configuration);
 
-//AssemblyReference
-builder.Services.AddMediatR(cfg =>
-    cfg.RegisterServicesFromAssembly(typeof(Hypesoft.Application.AssemblyReference).Assembly)
-);
+builder.Services.AddMediatR(typeof(AssemblyReference).Assembly);
+
+builder.Services.AddValidatorsFromAssembly(typeof(AssemblyReference).Assembly);
+
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+
 
 var app = builder.Build();
 
@@ -30,6 +35,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseMiddleware<ExceptionMiddleware>();
 app.MapControllers();
 
 app.Run();

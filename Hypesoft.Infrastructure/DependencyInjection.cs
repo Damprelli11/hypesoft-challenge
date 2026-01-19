@@ -1,9 +1,9 @@
-using Hypesoft.Domain.Repositories;
-using Hypesoft.Infrastructure.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Hypesoft.Domain.Repositories;
+using Hypesoft.Infrastructure.Repositories;
 
-namespace Hypesoft.Infrastructure.Configurations;
+namespace Hypesoft.Infrastructure;
 
 public static class DependencyInjection
 {
@@ -12,6 +12,7 @@ public static class DependencyInjection
         IConfiguration configuration)
     {
         services.AddScoped<IProductRepository, ProductRepository>();
+
         return services;
     }
 }

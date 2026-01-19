@@ -1,3 +1,9 @@
+using MediatR;
+using Hypesoft.Domain.Repositories;
+using Hypesoft.Domain.Entities;
+
+namespace Hypesoft.Application.Products.Commands.CreateProduct;
+
 public class CreateProductCommandHandler
     : IRequestHandler<CreateProductCommand, Guid>
 {
@@ -13,11 +19,11 @@ public class CreateProductCommandHandler
         CancellationToken cancellationToken)
     {
         var product = new Product(
-            request.Product.Name,
-            request.Product.Description,
-            request.Product.Price,
-            request.Product.Category,
-            request.Product.Stock
+            request.Name,
+            request.Description,
+            request.Price,
+            request.Category,
+            request.Stock
         );
 
         await _repository.AddAsync(product, cancellationToken);

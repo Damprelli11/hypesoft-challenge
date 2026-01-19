@@ -1,5 +1,5 @@
 namespace Hypesoft.Application;
 
-public static class AssemblyReference
+public sealed class AssemblyReference
 {
 }

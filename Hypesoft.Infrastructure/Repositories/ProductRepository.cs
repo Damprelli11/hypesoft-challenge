@@ -7,7 +7,7 @@ public class ProductRepository : IProductRepository
 {
     public async Task AddAsync(Product product, CancellationToken cancellationToken)
     {
-        // TEMPORÁRIO (até integrar Mongo/EF)
+        // implementação fake por enquanto
         await Task.CompletedTask;
     }
 }
