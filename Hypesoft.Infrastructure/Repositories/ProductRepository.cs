@@ -5,9 +5,27 @@ namespace Hypesoft.Infrastructure.Repositories;
 
 public class ProductRepository : IProductRepository
 {
-    public async Task AddAsync(Product product, CancellationToken cancellationToken)
+    private readonly List<Product> _products;
+
+    public ProductRepository(List<Product> products)
     {
-        // implementação fake por enquanto
-        await Task.CompletedTask;
+        _products = products;
+    }
+
+    public Task AddAsync(Product product, CancellationToken ct)
+    {
+        _products.Add(product);
+        return Task.CompletedTask;
+    }
+
+    public Task<Product?> GetByIdAsync(Guid id, CancellationToken ct)
+    {
+        var product = _products.FirstOrDefault(p => p.Id == id);
+        return Task.FromResult(product);
+    }
+
+    public Task<IReadOnlyList<Product>> GetAllAsync(CancellationToken ct)
+    {
+        return Task.FromResult((IReadOnlyList<Product>)_products);
     }
 }
