@@ -23,14 +23,16 @@ export default function ProductsPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4">Produtos</h1>
-      <input
-        placeholder="Buscar"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        className="bg-zinc-100 border border-zinc-800 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-zinc-600"
-      />
-      <CreateProductDialog />
+      <div className="flex items-center justify-between mb-4">
+        <h1 className="text-2xl font-bold mb-4">Produtos</h1>
+        <input
+          placeholder="Buscar"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="bg-zinc-100 border border-zinc-800 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-zinc-600"
+        />
+        <CreateProductDialog />
+      </div>
       <div className="rounded-lg border border-zinc-800 overflow-hidden">
         <table className="w-full text-sm">
           <thead className="bg-zinc-900 text-zinc-400">

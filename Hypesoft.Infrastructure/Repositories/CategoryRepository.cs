@@ -32,4 +32,10 @@ public class CategoryRepository : ICategoryRepository
     {
         await _collection.InsertOneAsync(category, cancellationToken: cancellationToken);
     }
+
+    public async Task UpdateAsync(Category category, CancellationToken cancellationToken)
+    {
+        var filter = Builders<Category>.Filter.Eq(x => x.Id, category.Id);
+        await _collection.ReplaceOneAsync(filter, category, cancellationToken: cancellationToken);
+    }
 }

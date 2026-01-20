@@ -1,6 +1,11 @@
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
+
 using Hypesoft.Domain.Entities;
 using Hypesoft.Domain.Repositories;
-using Microsoft.AspNetCore.Mvc;
+
+using Hypesoft.Application.DTOs;
+using Hypesoft.Application.Categories.Commands.UpdateCategory;
 
 namespace Hypesoft.API.Controllers;
 
@@ -9,10 +14,14 @@ namespace Hypesoft.API.Controllers;
 public class CategoriesController : ControllerBase
 {
     private readonly ICategoryRepository _repository;
+    private readonly IMediator _mediator;
 
-    public CategoriesController(ICategoryRepository repository)
+    public CategoriesController(
+        ICategoryRepository repository,
+        IMediator mediator)
     {
         _repository = repository;
+        _mediator = mediator;
     }
 
     [HttpGet]
@@ -33,6 +42,17 @@ public class CategoriesController : ControllerBase
 
         return CreatedAtAction(nameof(GetAll), category);
     }
-}
 
-public record CreateCategoryRequest(string Name);
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(
+        Guid id,
+        UpdateCategoryRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _mediator.Send(
+            new UpdateCategoryCommand(id, request.Name),
+            cancellationToken);
+
+        return NoContent();
+    }
+}
