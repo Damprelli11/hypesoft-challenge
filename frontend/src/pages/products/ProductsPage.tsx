@@ -2,8 +2,11 @@ import { useProducts } from "@/hooks/useProducts";
 import { CreateProductDialog } from "@/pages/products/CreateProductDialog";
 import { EditProductDialog } from "./EditProductDialog";
 import { DeleteProductDialog } from "./DeleteProductDialog";
+import { useState } from "react";
+
 
 export default function ProductsPage() {
+  const [search, setSearch] = useState("");
   const { data, isLoading, error } = useProducts();
 
   if (isLoading) {
@@ -14,9 +17,19 @@ export default function ProductsPage() {
     return <p className="text-red-500">Erro ao carregar produtos</p>;
   }
 
+  const filteredProducts = data?.filter((product) =>
+    product.name.toLowerCase().includes(search.toLowerCase()),
+  );
+
   return (
     <div>
       <h1 className="text-2xl font-bold mb-4">Produtos</h1>
+      <input
+        placeholder="Buscar"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        className="bg-zinc-100 border border-zinc-800 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-zinc-600"
+      />
       <CreateProductDialog />
       <div className="rounded-lg border border-zinc-800 overflow-hidden">
         <table className="w-full text-sm">
@@ -31,7 +44,7 @@ export default function ProductsPage() {
           </thead>
 
           <tbody>
-            {data?.map((product) => (
+            {filteredProducts?.map((product) => (
               <tr
                 key={product.id}
                 className="border-t border-zinc-800 hover:bg-zinc-100"

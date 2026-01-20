@@ -30,12 +30,12 @@ export function CreateProductDialog() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button>Novo Produto</Button>
+        <Button>+ Novo</Button>
       </DialogTrigger>
 
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Novo Produto</DialogTitle>
+          <DialogTitle>+ Novo</DialogTitle>
         </DialogHeader>
 
         <ProductForm onSubmit={handleCreate} isLoading={isPending} />
