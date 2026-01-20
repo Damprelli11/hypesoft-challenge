@@ -34,7 +34,7 @@ export function EditProductDialog({ product }: EditProductDialogProps) {
       setOpen(false); //fecha o modal
     } catch {
       toast.error("Erro ao atualizar produto");
-      throw new Error(); // impede reset se falhar
+      throw new Error(); //impede reset se falhar
     }
   }
 

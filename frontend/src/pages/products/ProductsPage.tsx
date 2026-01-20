@@ -1,6 +1,7 @@
 import { useProducts } from "@/hooks/useProducts";
 import { CreateProductDialog } from "@/pages/products/CreateProductDialog";
 import { EditProductDialog } from "./EditProductDialog";
+import { DeleteProductDialog } from "./DeleteProductDialog";
 
 export default function ProductsPage() {
   const { data, isLoading, error } = useProducts();
@@ -33,16 +34,15 @@ export default function ProductsPage() {
             {data?.map((product) => (
               <tr
                 key={product.id}
-                className="border-t border-zinc-800 hover:bg-zinc-900"
+                className="border-t border-zinc-800 hover:bg-zinc-100"
               >
                 <td className="p-3">{product.name}</td>
                 <td className="p-3">{product.category}</td>
                 <td className="p-3">R$ {product.price.toFixed(2)}</td>
                 <td className="p-3">{product.stock}</td>
-                <td className="p-3">
-                  <div className="flex gap-2">
-                    <EditProductDialog product={product} />
-                  </div>
+                <td className="p-3 flex gap-2">
+                  <EditProductDialog product={product} />
+                  <DeleteProductDialog product={product} />
                 </td>
               </tr>
             ))}
