@@ -6,7 +6,7 @@ public class Product
     public string Name { get; private set; } = null!;
     public string Description { get; private set; } = null!;
     public decimal Price { get; private set; }
-    public string Category { get; private set; } = null!;
+    public Guid CategoryId { get; private set; }
     public int Stock { get; private set; }
     public DateTime CreatedAt { get; private set; }
 
@@ -16,14 +16,14 @@ public class Product
         string name,
         string description,
         decimal price,
-        string category,
+        Guid categoryId,
         int stock)
     {
         Id = Guid.NewGuid();
         Name = name;
         Description = description;
         Price = price;
-        Category = category;
+        CategoryId = categoryId;
         Stock = stock;
         CreatedAt = DateTime.UtcNow;
     }
@@ -32,13 +32,13 @@ public class Product
         string name,
         string description,
         decimal price,
-        string category,
+        Guid categoryId,
         int stock)
     {
         Name = name;
         Description = description;
         Price = price;
-        Category = category;
+        CategoryId = categoryId;
         Stock = stock;
     }
 

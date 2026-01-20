@@ -58,7 +58,7 @@ export function EditProductDialog({ product }: EditProductDialogProps) {
             name: product.name,
             description: product.description,
             price: product.price,
-            category: product.category,
+            categoryId: product.categoryId,
             stock: product.stock,
           }}
         />

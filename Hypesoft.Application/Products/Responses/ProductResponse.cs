@@ -5,6 +5,7 @@ public record ProductResponse(
     string Name,
     string Description,
     decimal Price,
-    string Category,
+    Guid CategoryId,
+    string CategoryName,
     int Stock
 );

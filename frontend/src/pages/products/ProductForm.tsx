@@ -4,6 +4,14 @@ import { productSchema, type ProductFormData } from "@/schemas/productSchema";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useCategories } from "@/hooks/useCategories";
 
 interface ProductFormProps {
   onSubmit: (data: ProductFormData) => void;
@@ -16,14 +24,19 @@ export function ProductForm({
   isLoading,
   initialData,
 }: ProductFormProps) {
+  const { data: categories } = useCategories();
   const {
     register,
     handleSubmit,
+    setValue,
+    watch,
     formState: { errors },
   } = useForm<ProductFormData>({
     resolver: zodResolver(productSchema),
     defaultValues: initialData,
   });
+
+  const selectedCategoryId = watch("categoryId");
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -51,7 +64,25 @@ export function ProductForm({
 
       <div>
         <Label>Categoria</Label>
-        <Input {...register("category")} />
+        <Select
+          value={selectedCategoryId}
+          onValueChange={(value: string) => setValue("categoryId", value)}
+        >
+          <SelectTrigger>
+            <SelectValue placeholder="Selecione uma categoria" />
+          </SelectTrigger>
+
+          <SelectContent>
+            {categories?.map((cat) => (
+              <SelectItem key={cat.id} value={cat.id}>
+                {cat.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        {errors.categoryId && (
+          <p className="text-red-500 text-sm">{errors.categoryId.message}</p>
+        )}
       </div>
 
       <div>
