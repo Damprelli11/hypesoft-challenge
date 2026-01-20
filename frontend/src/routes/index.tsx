@@ -1,14 +1,16 @@
 import { createBrowserRouter } from "react-router-dom";
-import { AppLayout } from "@/components/layout/AppLayout";
-import { DashboardPage } from "@/pages/dashboard/DashboardPage";
-import { ProductsPage } from "@/pages/products/ProductsPage";
+import { DashboardLayout } from "@/components/layout/DashboardLayout";
+import DashboardPage from "@/pages/dashboard/DashboardPage";
+import ProductsPage from "@/pages/products/ProductsPage";
+import CategoriesPage from "@/pages/categories/CategoriesPage";
 
 export const router = createBrowserRouter([
   {
-    element: <AppLayout />,
+    element: <DashboardLayout />,
     children: [
       { path: "/", element: <DashboardPage /> },
       { path: "/products", element: <ProductsPage /> },
+      { path: "/categories", element: <CategoriesPage /> },
     ],
   },
 ]);

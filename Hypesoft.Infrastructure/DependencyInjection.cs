@@ -18,6 +18,8 @@ public static class DependencyInjection
         services.AddSingleton<MongoContext>();
         services.AddScoped<IProductRepository, ProductRepository>();
 
+        services.AddScoped<ICategoryRepository, CategoryRepository>();
+
         return services;
     }
 }

@@ -1,9 +1,10 @@
 import { Link, useLocation } from "react-router-dom";
-import { Package, LayoutDashboard } from "lucide-react";
+import { Package, LayoutDashboard, Folder } from "lucide-react";
 
 const menu = [
   { label: "Dashboard", path: "/", icon: LayoutDashboard },
   { label: "Products", path: "/products", icon: Package },
+  { label: "Categories", path: "/categories", icon: Folder },
 ];
 
 export function Sidebar() {
