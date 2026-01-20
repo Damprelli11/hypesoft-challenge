@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { Package, LayoutDashboard, Folder } from "lucide-react";
+import logo from "@/assets/logo.svg?url";
 
 const menu = [
   { label: "Dashboard", path: "/", icon: LayoutDashboard },
@@ -12,7 +13,9 @@ export function Sidebar() {
 
   return (
     <aside className="w-64 bg-zinc-900 text-white min-h-screen">
-      <div className="p-6 text-xl font-bold">Hypesoft - Gestão</div>
+      <div className="p-6 flex items-center gap-3">
+        <img src={logo} alt="Hypesoft Logo" className="h-8 w-13" />
+      </div>
 
       <nav className="space-y-1 px-4">
         {menu.map((item) => {
@@ -27,7 +30,7 @@ export function Sidebar() {
                 ${
                   active
                     ? "bg-zinc-800 text-white"
-                    : "text-zinc-400 hover:bg-zinc-800 hover:text-white"
+                    : "text-zinc-400 hover:bg-[#7d01ff] hover:text-white"
                 }
               `}
             >

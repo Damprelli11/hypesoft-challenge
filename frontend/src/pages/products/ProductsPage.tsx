@@ -57,8 +57,8 @@ export default function ProductsPage() {
               ))}
             </SelectContent>
           </Select>
+          <CreateProductDialog />
         </div>
-        <CreateProductDialog />
       </div>
       <div className="rounded-lg border border-zinc-800 overflow-hidden">
         <table className="w-full text-sm">
