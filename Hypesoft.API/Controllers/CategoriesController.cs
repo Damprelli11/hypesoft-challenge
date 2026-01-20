@@ -6,6 +6,7 @@ using Hypesoft.Domain.Repositories;
 
 using Hypesoft.Application.DTOs;
 using Hypesoft.Application.Categories.Commands.UpdateCategory;
+using Hypesoft.Application.Categories.Commands.DeleteCategory;
 
 namespace Hypesoft.API.Controllers;
 
@@ -51,6 +52,18 @@ public class CategoriesController : ControllerBase
     {
         await _mediator.Send(
             new UpdateCategoryCommand(id, request.Name),
+            cancellationToken);
+
+        return NoContent();
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(
+        Guid id,
+        CancellationToken cancellationToken)
+    {
+        await _mediator.Send(
+            new DeleteCategoryCommand(id),
             cancellationToken);
 
         return NoContent();

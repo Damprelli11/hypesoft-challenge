@@ -38,4 +38,10 @@ public class CategoryRepository : ICategoryRepository
         var filter = Builders<Category>.Filter.Eq(x => x.Id, category.Id);
         await _collection.ReplaceOneAsync(filter, category, cancellationToken: cancellationToken);
     }
+
+    public async Task DeleteAsync(Guid id, CancellationToken cancellationToken)
+    {
+        var filter = Builders<Category>.Filter.Eq(x => x.Id, id);
+        await _collection.DeleteOneAsync(filter, cancellationToken);
+    }
 }

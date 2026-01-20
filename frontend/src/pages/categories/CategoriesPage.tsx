@@ -1,6 +1,7 @@
 import { useCategories } from "@/hooks/useCategories";
 import { CreateCategoryDialog } from "./CreateCategoryDialog";
 import { EditCategoryDialog } from "./EditCategoryDialog";
+import { DeleteCategoryDialog } from "./DeleteCategoryDialog";
 
 export default function CategoriesPage() {
   const { data, isLoading, error } = useCategories();
@@ -39,6 +40,7 @@ export default function CategoriesPage() {
 
                 <td className="p-3 text-right">
                   <EditCategoryDialog category={category} />
+                  <DeleteCategoryDialog category={category} />
                 </td>
               </tr>
             ))}
