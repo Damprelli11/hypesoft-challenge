@@ -3,8 +3,8 @@ import { Package, LayoutDashboard, Folder } from "lucide-react";
 
 const menu = [
   { label: "Dashboard", path: "/", icon: LayoutDashboard },
-  { label: "Products", path: "/products", icon: Package },
-  { label: "Categories", path: "/categories", icon: Folder },
+  { label: "Produtos", path: "/products", icon: Package },
+  { label: "Categorias", path: "/categories", icon: Folder },
 ];
 
 export function Sidebar() {
@@ -12,7 +12,7 @@ export function Sidebar() {
 
   return (
     <aside className="w-64 bg-zinc-900 text-white min-h-screen">
-      <div className="p-6 text-xl font-bold">Hypesoft</div>
+      <div className="p-6 text-xl font-bold">Hypesoft - Gestão</div>
 
       <nav className="space-y-1 px-4">
         {menu.map((item) => {

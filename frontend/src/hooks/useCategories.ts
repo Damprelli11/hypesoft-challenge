@@ -1,10 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
+import { api } from "@/services/api";
 import type { Category } from "@/types/category";
-import { getCategories } from "@/services/categoryService";
 
 export function useCategories() {
   return useQuery<Category[]>({
     queryKey: ["categories"],
-    queryFn: getCategories,
+    queryFn: async () => {
+      const response = await api.get("/categories");
+      return response.data;
+    },
   });
 }
