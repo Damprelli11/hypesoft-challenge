@@ -5,6 +5,7 @@
 Este projeto é uma solução completa para gestão de produtos e categorias, desenvolvido como desafio técnico para a Hypesoft. O sistema permite criar, listar, editar e excluir produtos e categorias, com autenticação integrada via Keycloak, interface responsiva e moderna.
 
 
+
 ## Funcionalidades
 
 ### Gestão de Produtos
@@ -69,7 +70,7 @@ Este projeto é uma solução completa para gestão de produtos e categorias, de
 
 ### Clone o repositório
 ```bash
-git clone https://github.com/seu-usuario/hypesoft-challenge.git
+git clone https://github.com/Damprelli11/hypesoft-challenge.git
 cd hypesoft-challenge
 ```
 
