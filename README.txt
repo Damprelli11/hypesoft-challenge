@@ -1,0 +1,421 @@
+# Hypesoft - Sistema de Gestão de Produtos
+
+## Descrição
+
+Este projeto é uma solução completa para gestão de produtos e categorias, desenvolvido como desafio técnico para a Hypesoft. O sistema permite criar, listar, editar e excluir produtos e categorias, com autenticação integrada via Keycloak, interface responsiva e moderna.
+
+Inspirado no design do [ShopSense Dashboard - Product Page](https://dribbble.com/shots/24508262-ShopSense-Dashboard-Product-Page) no Dribbble.
+
+## Funcionalidades
+
+### Gestão de Produtos
+- ✅ Criar, listar, editar e excluir produtos
+- ✅ Campos: nome, descrição, preço, categoria, quantidade em estoque
+- ✅ Validação de dados obrigatórios
+- ✅ Busca por nome do produto
+- ✅ Filtragem por categoria
+
+### Sistema de Categorias
+- ✅ Criar, editar e excluir categorias
+- ✅ Associação de produtos a categorias
+- ✅ Lista simples de categorias
+
+### Autenticação e Segurança
+- ✅ Integração com Keycloak para autenticação OAuth2/OpenID Connect
+- ✅ Login via Keycloak
+- ✅ Proteção de rotas no frontend
+- ✅ Autorização baseada em roles do Keycloak
+- ✅ Logout integrado
+
+### Interface e UX
+- ✅ Design responsivo e moderno
+- ✅ Tema escuro na tela de login
+- ✅ Botões estilizados (verde escuro para salvar, outline roxo para login)
+- ✅ Notificações com Sonner
+- ✅ Validação de formulários com React Hook Form e Zod
+
+## Tecnologias Utilizadas
+
+### Frontend
+- **React 18** com TypeScript
+- **Vite** para build e dev server
+- **Tailwind CSS** para estilização
+- **React Router** para navegação
+- **React Query** para gerenciamento de estado e API
+- **Keycloak JS** para autenticação
+- **React Hook Form + Zod** para formulários e validação
+- **Radix UI** para componentes acessíveis
+- **Lucide React** para ícones
+
+### Backend
+- **.NET 8** com C#
+- **ASP.NET Core** Web API
+- **MongoDB** para banco de dados
+- **Clean Architecture** (Domain, Application, Infrastructure, API)
+- **CQRS + Mediator** com MediatR
+- **FluentValidation** para validação
+- **Swagger** para documentação da API
+
+### Infraestrutura
+- **Docker Compose** para orquestração (MongoDB + Keycloak)
+- **JWT** para autenticação na API
+
+## Pré-requisitos
+
+- Node.js 18+
+- .NET 8 SDK
+- Docker e Docker Compose
+
+## Instalação e Execução
+
+### 1. Clone o repositório
+```bash
+git clone https://github.com/seu-usuario/hypesoft-challenge.git
+cd hypesoft-challenge
+```
+
+### 2. Configure o Keycloak
+- Inicie os serviços com Docker:
+```bash
+docker-compose up -d
+```
+- Acesse http://localhost:8080 (admin/admin)
+- Crie o realm "hypesoft"
+- Crie o client "frontend" (public, Standard flow, redirect URIs: http://localhost:5173/*)
+- Crie um usuário para teste
+
+### 3. Backend
+```bash
+cd Hypesoft.API
+dotnet run
+```
+- API rodará em http://localhost:5000 (ou conforme launchSettings.json)
+
+### 4. Frontend
+```bash
+cd frontend
+npm install
+npm run dev
+```
+- App rodará em http://localhost:5173
+
+## Estrutura do Projeto
+
+```
+hypesoft-challenge/
+├── frontend/                 # Aplicação React
+│   ├── src/
+│   │   ├── auth/            # Autenticação com Keycloak
+│   │   ├── components/      # Componentes reutilizáveis
+│   │   ├── hooks/           # Hooks customizados
+│   │   ├── pages/           # Páginas da aplicação
+│   │   ├── routes/          # Configuração de rotas
+│   │   └── schemas/         # Validações Zod
+├── Hypesoft.API/            # API .NET
+│   ├── Controllers/         # Endpoints
+│   ├── Middlewares/         # Middlewares customizados
+│   └── Properties/          # Configurações
+├── Hypesoft.Application/    # Camada de aplicação (CQRS)
+├── Hypesoft.Domain/         # Entidades e regras de negócio
+├── Hypesoft.Infrastructure/ # Infraestrutura (MongoDB)
+└── docker-compose.yml       # Serviços Docker
+```
+
+## API Endpoints
+
+### Produtos
+- `GET /api/products` - Listar produtos
+- `POST /api/products` - Criar produto
+- `PUT /api/products/{id}` - Atualizar produto
+- `DELETE /api/products/{id}` - Excluir produto
+
+### Categorias
+- `GET /api/categories` - Listar categorias
+- `POST /api/categories` - Criar categoria
+- `PUT /api/categories/{id}` - Atualizar categoria
+- `DELETE /api/categories/{id}` - Excluir categoria
+
+## Desenvolvimento
+
+### Scripts Disponíveis
+```bash
+# Frontend
+npm run dev      # Inicia dev server
+npm run build    # Build para produção
+npm run lint     # Executa ESLint
+
+# Backend
+dotnet build     # Build do projeto
+dotnet test      # Executa testes
+```
+
+### Variáveis de Ambiente
+- Frontend: Configure `VITE_API_URL` se necessário
+- Backend: Ajuste `appsettings.json` para MongoDB e Keycloak
+
+## Contribuição
+
+1. Fork o projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/nova-feature`)
+3. Commit suas mudanças (`git commit -am 'Adiciona nova feature'`)
+4. Push para a branch (`git push origin feature/nova-feature`)
+5. Abra um Pull Request
+
+## Licença
+
+Este projeto é para fins educacionais e de demonstração.
+
+## Autor
+
+Desenvolvido por [Renan Damprelli](https://github.com/Damprelli11) como parte do desafio técnico Hypesoft.
+Controle de Estoque
+Controlar quantidade em estoque de cada produto
+Atualização manual de estoque
+Exibir produtos com estoque baixo (menor que 10 unidades)
+Dashboard Simples
+Total de produtos cadastrados
+Valor total do estoque
+Lista de produtos com estoque baixo
+Gráfico básico de produtos por categoria
+Sistema de Autenticação
+Integração com Keycloak para autenticação
+Login via Keycloak (OAuth2/OpenID Connect)
+Proteção de rotas no frontend
+Autorização baseada em roles do Keycloak
+Logout integrado com Keycloak
+Requisitos Técnicos
+Performance
+Resposta da API em menos de 500ms para consultas simples
+Paginação eficiente para grandes volumes
+Cache para consultas frequentes
+Otimização de queries no banco
+Escalabilidade
+Arquitetura preparada para crescimento horizontal
+Separação clara entre camadas
+Padrões que facilitem manutenção e evolução
+Código limpo e bem estruturado
+Segurança
+Rate limiting para prevenir abuso
+Validação e sanitização de entradas
+Headers de segurança adequados
+Tratamento seguro de dados sensíveis
+Disponibilidade
+Health checks implementados
+Tratamento adequado de erros
+Mensagens de erro claras e úteis
+Logs estruturados para monitoramento
+Usabilidade
+Interface responsiva (desktop e mobile)
+Validação em tempo real nos formulários
+Feedback visual para ações do usuário
+Experiência intuitiva e consistente
+Stack Tecnológica
+Frontend
+React 18 com TypeScript
+Vite ou Next.js 14 (App Router)
+TailwindCSS + Shadcn/ui para estilização
+React Query/TanStack Query para gerenciamento de estado
+React Hook Form + Zod para validação
+Recharts ou Chart.js para dashboards
+React Testing Library + Vitest para testes
+Backend
+.NET 9 com C#
+Clean Architecture + DDD (Domain-Driven Design)
+CQRS + MediatR pattern
+Entity Framework Core com MongoDB provider
+FluentValidation para validação
+AutoMapper para mapeamento
+Serilog para logging estruturado
+xUnit + FluentAssertions para testes
+Infraestrutura
+MongoDB como banco principal
+Keycloak para autenticação e autorização
+Docker + Docker Compose para containerização
+Nginx como reverse proxy
+Arquitetura do Sistema
+Backend - Clean Architecture + DDD
+src/
+├── Hypesoft.Domain/              # Camada de Domínio
+│   ├── Entities/                 # Entidades do domínio
+│   ├── ValueObjects/             # Objetos de valor
+│   ├── DomainEvents/            # Eventos de domínio
+│   ├── Repositories/            # Interfaces dos repositórios
+│   └── Services/                # Serviços de domínio
+├── Hypesoft.Application/         # Camada de Aplicação
+│   ├── Commands/                # Comandos CQRS
+│   ├── Queries/                 # Consultas CQRS
+│   ├── Handlers/                # Handlers MediatR
+│   ├── DTOs/                    # Data Transfer Objects
+│   ├── Validators/              # Validadores FluentValidation
+│   └── Interfaces/              # Interfaces da aplicação
+├── Hypesoft.Infrastructure/      # Camada de Infraestrutura
+│   ├── Data/                    # Contexto e configurações EF
+│   ├── Repositories/            # Implementação dos repositórios
+│   ├── Services/                # Serviços externos
+│   └── Configurations/          # Configurações de DI
+└── Hypesoft.API/                # Camada de Apresentação
+    ├── Controllers/             # Controllers da API
+    ├── Middlewares/             # Middlewares customizados
+    ├── Filters/                 # Filtros de ação
+    └── Extensions/              # Extensões de configuração
+Frontend - Arquitetura Modular
+src/
+├── components/                   # Componentes reutilizáveis
+│   ├── ui/                      # Componentes base (shadcn/ui)
+│   ├── forms/                   # Componentes de formulário
+│   ├── charts/                  # Componentes de gráficos
+│   └── layout/                  # Componentes de layout
+├── pages/                       # Páginas da aplicação
+├── hooks/                       # Custom hooks
+├── services/                    # Serviços de API
+├── stores/                      # Stores de estado global
+├── types/                       # Definições de tipos
+├── utils/                       # Funções utilitárias
+└── lib/                         # Configurações de bibliotecas
+Diferenciais
+Testes Abrangentes
+Cobertura mínima de 85% no backend
+Testes E2E com Playwright ou Cypress
+Testes de integração para todos os endpoints
+Testes unitários para regras de negócio
+Testes de mutação para validar qualidade
+Observabilidade Completa
+Logs estruturados com correlationId
+Métricas customizadas para monitoramento
+Health checks detalhados para todos os serviços
+Tratamento adequado de erros com contexto
+Monitoring de performance da aplicação
+Performance e Otimização
+Server-side rendering (Next.js)
+Code splitting e lazy loading
+Estratégias de caching (Redis + HTTP cache)
+Indexação otimizada do banco de dados
+Otimização de imagens e assets
+Compressão de responses
+Segurança Avançada
+Integração completa com Keycloak
+Proteção de rotas baseada em roles
+Token JWT validado adequadamente
+CORS configurado adequadamente
+Headers de segurança implementados
+Validação em múltiplas camadas
+Qualidade de Código
+Princípios SOLID aplicados consistentemente
+Clean Code em todas as camadas
+Padrões de design bem implementados
+Documentação inline adequada
+Tratamento de exceções robusto
+Documentação Excepcional
+OpenAPI/Swagger com exemplos detalhados
+Documentação de arquitetura (C4 Model)
+ADRs (Architecture Decision Records)
+Guias de instalação e execução completos
+Collection do Postman atualizada
+Pontos Extras (Opcionais)
+Roles avançadas no Keycloak (Admin, Manager, User)
+GraphQL como alternativa à REST API
+Real-time updates via SignalR/WebSockets
+Exportação de relatórios em PDF
+Internacionalização (i18n) básica
+PWA com capacidades offline
+Docker multi-stage builds otimizados
+Como Executar
+Pré-requisitos
+Docker Desktop 4.0+
+Node.js 18+
+.NET 9 SDK
+Git
+Instalação e Execução
+# Clone o repositório
+git clone https://github.com/seu-usuario/hypesoft-challenge.git
+cd hypesoft-challenge
+
+# Copie as variáveis de ambiente
+cp .env.example .env
+
+# Execute toda a aplicação com Docker Compose
+docker-compose up -d
+
+# Aguarde alguns segundos para os serviços iniciarem
+# Verifique se todos os containers estão rodando
+docker-compose ps
+URLs de Acesso
+Frontend: http://localhost:3000
+API: http://localhost:5000
+Swagger: http://localhost:5000/swagger
+MongoDB Express: http://localhost:8081
+Keycloak: http://localhost:8080
+Desenvolvimento Local
+# Para desenvolvimento do frontend
+cd frontend
+npm install
+npm run dev
+
+# Para desenvolvimento do backend
+cd backend
+dotnet restore
+dotnet run
+
+# Para executar testes
+dotnet test
+cd ../frontend
+npm test
+Padrões de Commit
+Este projeto utiliza Conventional Commits:
+
+# Exemplos de commits
+feat(products): add bulk import functionality
+fix(api): resolve pagination issue in products endpoint
+docs(readme): update installation instructions
+test(products): add unit tests for product service
+refactor(auth): improve JWT token validation
+perf(database): optimize product search queries
+style(frontend): apply consistent spacing in components
+chore(deps): update dependencies to latest versions
+Tipos de Commit
+feat: Nova funcionalidade
+fix: Correção de bug
+docs: Documentação
+style: Formatação, ponto e vírgula, etc
+refactor: Refatoração de código
+test: Adição ou correção de testes
+chore: Tarefas de manutenção
+perf: Melhorias de performance
+build: Build e dependências
+Critérios de Avaliação
+Técnico (60%)
+Arquitetura: Clean Architecture, DDD, CQRS implementados corretamente
+Qualidade de Código: SOLID, Clean Code, padrões consistentes
+Testes: Cobertura, qualidade dos testes, cenários bem cobertos
+Performance: Otimizações, caching, queries eficientes
+Segurança: Implementação adequada de autenticação/autorização
+Funcional (25%)
+Completude: Todas as funcionalidades implementadas
+UX/UI: Interface intuitiva e responsiva
+Validações: Tratamento adequado de erros
+Regras de Negócio: Implementação correta dos requisitos
+Profissional (15%)
+Documentação: README completo, código bem documentado
+Git Flow: Commits organizados, branches bem estruturadas
+Docker: Compose funcionando perfeitamente
+Extras: Funcionalidades que demonstram expertise avançada
+Entregáveis
+Código Fonte
+Repositório GitHub público
+README detalhado (este arquivo)
+Docker Compose funcional
+Testes automatizados com boa cobertura
+Aplicação Funcionando
+Todos os serviços rodando via Docker Compose
+Banco de dados populado com dados de exemplo
+Interface funcional e responsiva
+Documentação
+API documentada com Swagger
+Guia de instalação e execução
+Documentação das decisões arquiteturais
+Apresentação
+Vídeo de 5-10 minutos demonstrando a aplicação
+Explicação das decisões técnicas tomadas
+Showcase das funcionalidades implementadas
+Demonstração dos diferenciais implementados
+Boa sorte e mostre do que você é capaz!
