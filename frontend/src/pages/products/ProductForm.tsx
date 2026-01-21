@@ -90,7 +90,7 @@ export function ProductForm({
         <Input type="number" {...register("stock", { valueAsNumber: true })} />
       </div>
 
-      <Button className="w-full" disabled={isLoading}>
+      <Button className="w-full bg-green-800 hover:bg-green-900 text-white" disabled={isLoading}>
         {isLoading ? "Salvando..." : "Salvar"}
       </Button>
     </form>

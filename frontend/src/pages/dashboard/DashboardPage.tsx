@@ -1,8 +1,5 @@
-import { useContext } from "react";
-import { AuthContext } from "@/auth/AuthContext";
 
 export default function DashboardPage() {
-  const { roles } = useContext(AuthContext);
 
   return (
     <div>
@@ -18,7 +15,6 @@ export default function DashboardPage() {
         </a>
         ).
       </p>
-
     </div>
   );
 }
