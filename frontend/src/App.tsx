@@ -5,6 +5,10 @@ import { DashboardLayout } from "./components/layout/DashboardLayout";
 import DashboardPage from "./pages/dashboard/DashboardPage";
 import ProductsPage from "./pages/products/ProductsPage";
 
+/**
+ * Main application component that sets up routing.
+ * Uses React Router for client-side navigation.
+ */
 function App() {
   return (
     <BrowserRouter>

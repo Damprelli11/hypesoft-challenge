@@ -8,11 +8,27 @@ using MongoDB.Bson;
 
 namespace Hypesoft.Infrastructure.Persistence;
 
+/// <summary>
+/// Provides access to MongoDB collections for products and categories.
+/// Configures BSON serialization and mappings.
+/// </summary>
 public class MongoContext
 {
+    /// <summary>
+    /// Gets the MongoDB collection for products.
+    /// </summary>
     public IMongoCollection<Product> Products { get; }
+
+    /// <summary>
+    /// Gets the MongoDB collection for categories.
+    /// </summary>
     public IMongoCollection<Category> Categories { get; }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MongoContext"/> class.
+    /// Sets up MongoDB client, database, and collection mappings.
+    /// </summary>
+    /// <param name="options">The MongoDB settings options.</param>
     public MongoContext(IOptions<MongoDbSettings> options)
     {
         BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));

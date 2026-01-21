@@ -8,8 +8,10 @@ import { AuthProvider } from "@/auth/AuthProvider";
 
 import { router } from "./routes";
 
+// Create a client for React Query to manage server state
 const queryClient = new QueryClient();
 
+// Render the React application to the DOM
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>

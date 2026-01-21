@@ -5,8 +5,15 @@ using MongoDB.Bson.Serialization.Serializers;
 
 namespace Hypesoft.Infrastructure.Persistence.MongoMappings;
 
+/// <summary>
+/// Configures BSON mapping for the Product entity.
+/// </summary>
 public static class ProductMap
 {
+    /// <summary>
+    /// Registers the BSON class map for Product if not already registered.
+    /// Maps all properties and sets the Id as the document identifier with standard GUID representation.
+    /// </summary>
     public static void Configure()
     {
         if (BsonClassMap.IsClassMapRegistered(typeof(Product)))

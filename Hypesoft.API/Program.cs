@@ -7,9 +7,10 @@ using Hypesoft.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Controllers
+// Add controllers to the services
 builder.Services.AddControllers();
 
+// Configure CORS policy to allow requests from the frontend
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
@@ -21,32 +22,28 @@ builder.Services.AddCors(options =>
     });
 });
 
-
-// Swagger
+// Add Swagger for API documentation
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Infrastructure (Mongo + Repositories)
+// Register infrastructure services (MongoDB and repositories)
 builder.Services.AddInfrastructure(builder.Configuration);
 
-// MediatR
+// Register MediatR for command/query handling
 builder.Services.AddMediatR(typeof(AssemblyReference).Assembly);
 
-// Validators
+// Register FluentValidation validators
 builder.Services.AddValidatorsFromAssembly(typeof(AssemblyReference).Assembly);
 
-// Pipeline behavior
+// Add validation pipeline behavior
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
-
-
 
 var app = builder.Build();
 
-
+// Use the CORS policy
 app.UseCors("AllowFrontend");
 
-
-// Swagger só no ambiente de desenvolvimento
+// Enable Swagger UI only in development environment
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -55,6 +52,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+// Use custom exception middleware
 app.UseMiddleware<ExceptionMiddleware>();
 app.MapControllers();
 

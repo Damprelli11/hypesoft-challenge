@@ -7,6 +7,11 @@ import LoginPage from "@/pages/auth/LoginPage";
 
 import { ProtectedRoute } from "@/auth/ProtectedRoute";
 
+/**
+ * Application router configuration using React Router.
+ * Defines routes for login, dashboard, products, and categories.
+ * Protected routes require authentication.
+ */
 export const router = createBrowserRouter([
   {
     path: "/login",
