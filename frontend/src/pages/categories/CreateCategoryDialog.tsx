@@ -29,12 +29,12 @@ export function CreateCategoryDialog() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button>Nova Categoria</Button>
+        <Button>+ Novo</Button>
       </DialogTrigger>
 
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Nova Categoria</DialogTitle>
+          <DialogTitle>+ Novo</DialogTitle>
         </DialogHeader>
 
         <CategoryForm onSubmit={handleCreate} isLoading={isPending} />
