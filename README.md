@@ -68,30 +68,30 @@ Inspirado no design do [ShopSense Dashboard - Product Page](https://dribbble.com
 
 ## Instalação e Execução
 
-### 1. Clone o repositório
+### Clone o repositório
 ```bash
 git clone https://github.com/seu-usuario/hypesoft-challenge.git
 cd hypesoft-challenge
 ```
 
-### 2. Configure o Keycloak
-- Inicie os serviços com Docker:
-```bash
-docker-compose up -d
-```
-- Acesse http://localhost:8080 (admin/admin)
-- Crie o realm "hypesoft"
-- Crie o client "frontend" (public, Standard flow, redirect URIs: http://localhost:5173/*)
-- Crie um usuário para teste
+### Configure o Keycloak
+1. Inicie os serviços com Docker:
+   ```bash
+   docker-compose up -d
+   ```
+2. Acesse http://localhost:8080 (login: admin/admin)
+3. Crie o realm "hypesoft"
+4. Crie o client "frontend" (public, Standard flow, redirect URIs: http://localhost:5173/*)
+5. Crie um usuário para teste
 
-### 3. Backend
+### Execute o Backend
 ```bash
 cd Hypesoft.API
 dotnet run
 ```
-- API rodará em http://localhost:5000 (ou conforme launchSettings.json)
+- API rodará em http://localhost:5000
 
-### 4. Frontend
+### Execute o Frontend
 ```bash
 cd frontend
 npm install

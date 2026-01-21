@@ -23,7 +23,7 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen bg-zinc-900 flex items-center justify-center px-4">
-      <div className="bg-zinc-900 p-8 rounded-lg shadow-lg max-w-md w-full text-center">
+      <div className="bg-zinc-900 p-8 max-w-md w-full text-center">
         <img
           src={logo}
           alt="Hypesoft Logo"
